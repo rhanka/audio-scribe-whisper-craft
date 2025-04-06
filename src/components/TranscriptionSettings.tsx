@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 
-export type WhisperModel = "whisper-1" | "whisper-1-mini";
+export type WhisperModel = "whisper-1" | "gpt-4o-mini-transcribe" | "gpt-4o-transcribe";
 
 interface TranscriptionSettingsProps {
   apiKey: string;
@@ -116,9 +116,15 @@ export function TranscriptionSettings({
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="whisper-1-mini" id="whisper-mini" />
-                <Label htmlFor="whisper-mini">
-                  Mini (whisper-1-mini)
+                <RadioGroupItem value="gpt-4o-mini-transcribe" id="gpt-4o-mini" />
+                <Label htmlFor="gpt-4o-mini">
+                  Mini (gpt-4o-mini-transcribe)
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="gpt-4o-transcribe" id="gpt-4o" />
+                <Label htmlFor="gpt-4o">
+                  Standard (gpt-4o-transcribe)
                 </Label>
               </div>
             </RadioGroup>
