@@ -7,6 +7,7 @@ import { transcribeAudio } from "@/services/openaiService";
 import { Button } from "@/components/ui/button";
 import { Headphones } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { Progress } from "@/components/ui/progress";
 
 const Index = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -14,11 +15,15 @@ const Index = () => {
   const [selectedModel, setSelectedModel] = useState<WhisperModel>("whisper-1");
   const [transcription, setTranscription] = useState<string | null>(null);
   const [isTranscribing, setIsTranscribing] = useState<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
+  const [progressMessage, setProgressMessage] = useState<string>("");
   const { toast } = useToast();
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
     setTranscription(null);
+    setProgress(0);
+    setProgressMessage("");
   };
   
   const handleTranscribe = async () => {
@@ -41,9 +46,20 @@ const Index = () => {
     }
     
     setIsTranscribing(true);
+    setProgress(0);
+    setProgressMessage("Préparation...");
     
     try {
-      const result = await transcribeAudio(selectedFile, apiKey, selectedModel);
+      const result = await transcribeAudio(
+        selectedFile, 
+        apiKey, 
+        selectedModel,
+        (progress, message) => {
+          setProgress(progress);
+          setProgressMessage(message);
+        }
+      );
+      
       setTranscription(result);
       toast({
         title: "Transcription réussie!",
@@ -94,6 +110,13 @@ const Index = () => {
               <Headphones className="mr-2 h-5 w-5" />
               {isTranscribing ? "Transcription en cours..." : "Transcrire l'audio"}
             </Button>
+          )}
+          
+          {isTranscribing && (
+            <div className="space-y-2">
+              <Progress value={progress} className="h-2 w-full" />
+              <p className="text-sm text-center text-muted-foreground">{progressMessage}</p>
+            </div>
           )}
           
           <TranscriptionResult 
