@@ -13,7 +13,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 250 47% 45%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -30,25 +30,20 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 250 47% 45%;
 
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --highlight: 25 95% 53%;
   }
 
   .dark {
@@ -98,4 +93,20 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.file-drop-area {
+  @apply border-2 border-dashed rounded-lg p-8 transition-colors;
+}
+
+.file-drop-area.active {
+  @apply border-primary bg-primary/5;
+}
+
+.transcription-text {
+  @apply text-base leading-relaxed whitespace-pre-wrap;
+}
+
+.highlight-text {
+  @apply bg-[hsl(var(--highlight)/15%)] text-[hsl(var(--highlight)/80%)] px-1 rounded;
 }
