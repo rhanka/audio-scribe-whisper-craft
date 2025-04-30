@@ -2,12 +2,14 @@
 import { useState } from "react";
 import { AudioUploader } from "@/components/AudioUploader";
 import { TranscriptionSettings, WhisperModel } from "@/components/TranscriptionSettings";
+import { ApiKeyConfig } from "@/components/ApiKeyConfig";
 import { TranscriptionResult } from "@/components/TranscriptionResult";
-import { transcribeAudio } from "@/services/openaiService";
+import { transcribeAudio } from "@/services/openAIService";
 import { Button } from "@/components/ui/button";
 import { Headphones } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Progress } from "@/components/ui/progress";
+import { Navbar } from "@/components/Navbar";
 
 const Index = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -79,9 +81,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+      <Navbar />
       <div className="container mx-auto py-8 px-4 max-w-3xl">
         <header className="text-center mb-10">
-          <h1 className="text-4xl font-bold mb-2">AudioScribe</h1>
+          <h1 className="text-4xl font-bold mb-2">Transcription Audio</h1>
           <p className="text-muted-foreground">
             Transcrivez vos fichiers audio en texte avec l'API Whisper d'OpenAI
           </p>
@@ -93,9 +96,13 @@ const Index = () => {
             isLoading={isTranscribing}
           />
           
-          <TranscriptionSettings 
+          <ApiKeyConfig
             apiKey={apiKey}
             setApiKey={setApiKey}
+            isLoading={isTranscribing}
+          />
+          
+          <TranscriptionSettings 
             selectedModel={selectedModel}
             setSelectedModel={setSelectedModel}
             isLoading={isTranscribing}
