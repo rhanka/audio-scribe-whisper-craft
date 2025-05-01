@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Headphones, Volume } from "lucide-react";
+import { Headphones, Volume, Merge } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLocation } from "react-router-dom";
 
@@ -44,6 +44,18 @@ export function Navbar() {
             >
               <Volume size={18} />
               <span>Synthèse Vocale</span>
+            </Link>
+            <Link 
+              to="/audio-video-merge" 
+              className={cn(
+                "px-3 py-2 rounded-md transition-colors flex items-center gap-2",
+                isActive("/audio-video-merge") 
+                  ? "bg-primary text-primary-foreground" 
+                  : "hover:bg-accent hover:text-accent-foreground"
+              )}
+            >
+              <Merge size={18} />
+              <span>Fusion Audio-Vidéo</span>
             </Link>
           </div>
         </div>
